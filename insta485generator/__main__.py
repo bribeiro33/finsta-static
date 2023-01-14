@@ -3,14 +3,13 @@ import click
 import pathlib
 import jinja2
 import json
-import os
 import shutil
-import sys
+import os
 
 @click.command()
 @click.argument("input_dir", nargs=1, type=click.Path(exists=True))
-@click.option('-o','--output', help='Output directory.')
-@click.option('-v','--verbose', is_flag=True,default=False, help='Print more output.')
+@click.option('-o','--output', type=click.Path(), help='Output directory.') #exists might be false
+@click.option('-v','--verbose', is_flag=True, default=False, help='Print more output.')
 
 def main(input_dir, output, verbose):
     """Templated static website generator."""
@@ -61,10 +60,15 @@ def main(input_dir, output, verbose):
     #########   Copy static_dir files into output_dir #########
     static_dir = input_dir/"static"
     if static_dir.exists():
-        shutil.copytree(static_dir, output_dir, dirs_exist_ok=True)
+        shutil.copytree(src=static_dir, dst=output_dir, dirs_exist_ok=True)
         if verbose:
             print("Copied " + str(input_dir) + " -> " + str(output_dir))
-
+    # s = pathlib.Path(str(input_dir) + "/static")
+    # t = pathlib.Path(output_dir)
+    # if s.exists():
+    #     shutil.copytree(s,t,dirs_exist_ok=True)
+    #     if verbose:
+    #         print("Copied "+str(input_dir) + " -> "+str(output_dir))
 
 
 if __name__ == "__main__":

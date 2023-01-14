@@ -1,0 +1,38 @@
+#!/bin/bash
+#
+# insta485test
+#
+# Runs test 
+#
+# Barbara Ribeiro <bdreyer@umich.edu>
+
+
+
+
+# Stop on errors, print commands
+set -Eeuo pipefail
+set -x
+
+
+# Runs all unit tests
+pytest tests/
+
+
+# Runs style tests
+pycodestyle insta485generator
+pydocstyle insta485generator
+pylint --disable=no-value-for-parameter insta485generator
+
+#Cleans up from previous test
+cd insta485
+rm -r html
+cd ..
+
+#build new directory using generator
+insta485generator insta485
+
+#Validates hand-coded HTML
+html5validator --ignore JAVA_TOOL_OPTIONS --root html
+
+#Validates generated HTML
+html5validator --ignore JAVA_TOOL_OPTIONS --root insta485/html
