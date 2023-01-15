@@ -1,0 +1,12 @@
+body {
+    text-align: center;
+    background: lightcoral;
+    margin: 10%;
+}
+
+header {
+    display: inline; 
+}
+.post-center {
+    display: inline;
+}
