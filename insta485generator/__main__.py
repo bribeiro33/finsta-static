@@ -11,11 +11,8 @@ import jinja2
 @click.argument("input_dir", nargs=1, type=click.Path(exists=True))
 @click.option('-o', '--output', type=click.Path(), help='Output directory.')
 @click.option('-v', '--verbose', is_flag=True, default=False,
-                help='Print more output.')
-
+              help='Print more output.')
 def main(input_dir, output, verbose):
-
-
     """Templated static website generator."""
     # ------ Read in Config file ------ #
     input_dir = pathlib.Path(input_dir)  # convert str to Path object
@@ -25,7 +22,7 @@ def main(input_dir, output, verbose):
 
     # ------ Read Config file ------ #
     config_path = input_dir/"config.json"
-    url = template  = context = ""
+    url = template = context = ""
     with config_path.open() as config_file:
         config_info = json.load(config_file)
         for info in config_info:
@@ -36,7 +33,7 @@ def main(input_dir, output, verbose):
             # ------ Format and Check Output Path ------ #
             url = url.lstrip("/")  # remove leading slash
             output_dir = input_dir/"html"  # default, can be changed with -o
-            if output:  #if -o is specified, different output_dir specified
+            if output:  # if -o is specified, different output_dir specified
                 output_dir = pathlib.Path(output)  # convert str to Path object
             output_path = output_dir/url/"index.html"
             output_dir = output_dir/url
