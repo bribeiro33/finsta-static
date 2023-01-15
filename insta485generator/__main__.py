@@ -30,31 +30,31 @@ def main(input_dir, output, verbose):
             template = info['template']
             context = info['context']
 
-    #########   Format and Check Output Path #########
-    url = url.lstrip("/")  # remove leading slash #might not need for --output
-    output_dir = input_dir/"html"  # default, can be changed with --output option
-    if output: #if -o is specified, different output_dir specified
-        output_dir = pathlib.Path(output) # convert str to Path object
-    if output_dir.exists():
-        print("Output directory already exists")
-        exit(1)
-    output_path = output_dir/url/"index.html"
-    
-    #########   Render Templates #########
-    template_dir = str(input_dir) + "/templates/" #possible issue
-    from jinja2 import Environment, PackageLoader, select_autoescape
-    template_env = jinja2.Environment(
-        loader=jinja2.FileSystemLoader(template_dir),
-        autoescape=jinja2.select_autoescape(['html', 'xml']),
-    )
+            #########   Format and Check Output Path #########
+            url = url.lstrip("/")  # remove leading slash
+            output_dir = input_dir/"html"  # default, can be changed with --output option
+            if output: #if -o is specified, different output_dir specified
+                output_dir = pathlib.Path(output) # convert str to Path object
+            if output_dir.exists():
+                print("Output directory already exists")
+                exit(1)
+            output_path = output_dir/url/"index.html"
+            
+            #########   Render Templates #########
+            template_dir = str(input_dir) + "/templates/" 
+            from jinja2 import Environment, PackageLoader, select_autoescape
+            template_env = jinja2.Environment(
+                loader=jinja2.FileSystemLoader(template_dir),
+                autoescape=jinja2.select_autoescape(['html', 'xml']),
+            )
 
-    template = template_env.get_template(template)
+            template = template_env.get_template(template)
 
-    output_dir.mkdir() #check parents? for -output, already checked if dir exists
-    output_path.touch(exist_ok=False) #create index.html file
-    output_path.write_text(template.render(**context)) # recursive rendering of all dictionaries in 'context'
-    if verbose:
-        print("Rendered " + str(template) + " -> " + str(output_path))
+            output_dir.mkdir() #check parents? for -output, already checked if dir exists
+            output_path.touch(exist_ok=False) #create index.html file
+            output_path.write_text(template.render(**context)) # recursive rendering of all dictionaries in 'context'
+            if verbose:
+                print("Rendered " + str(template) + " -> " + str(output_path))
     
 
     #########   Copy static_dir files into output_dir #########
@@ -63,12 +63,7 @@ def main(input_dir, output, verbose):
         shutil.copytree(src=static_dir, dst=output_dir, dirs_exist_ok=True)
         if verbose:
             print("Copied " + str(input_dir) + " -> " + str(output_dir))
-    # s = pathlib.Path(str(input_dir) + "/static")
-    # t = pathlib.Path(output_dir)
-    # if s.exists():
-    #     shutil.copytree(s,t,dirs_exist_ok=True)
-    #     if verbose:
-    #         print("Copied "+str(input_dir) + " -> "+str(output_dir))
+
 
 
 if __name__ == "__main__":

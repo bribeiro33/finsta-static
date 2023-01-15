@@ -9,14 +9,14 @@
     <body>
         <header>
             <a href="/">
-                <img src="/images/insta_logo.png" alt="black and white instagram logo"></a>
+                <img src="/images/logo.png" alt="black and white instagram logo"></a>
             <a href="/explore/">explore</a>
             <a href="/users/{{logname}}/">{{logname}}</a>
         </header>
         <div>
-            {% for acoount in not_following %}
-            <img src="{{user_img_url}}" alt="followers's icon">
-            <p><a href="/users/{{username}}/">{{username}}</a></p>
+            {% for account in not_following %}
+                <img src="{{account.user_img_url}}" alt="followers's icon">
+                <p><a href="/users/{{account.username}}/">{{account.username}}</a></p>
             {% endfor %}
         </div>
     </body>

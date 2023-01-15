@@ -9,29 +9,29 @@
 <body>
   <header>
     <a href="/">
-        <img src="/images/insta_logo.png" alt="black and white instagram logo"></a>
+        <img src="/images/logo.png" alt="black and white instagram logo"></a>
       <a href="/explore/">explore</a>
       <a href="/users/{{logname}}/">{{logname}}</a>
   </header>
   <div>
     <h1>{{username}}</h1> 
     {% if logname_follows_username}
-        <p>following</p>
+      <p>following</p>
     {% elif !logname_follows_username && logname != username %}
-        <p>not following</p>
+      <p>not following</p>
     {% endif %}
     
     {% if total_posts == 1 %}
-        <p>1 post</p>
+      <p>1 post</p>
     {% else %}
-        <p>{{total_posts}} posts</p>
+      <p>{{total_posts}} posts</p>
     {% endif %}
     
     <a href="/users/{{username}}/followers/">
         {% if followers == 1 %}
-            <p>1 follower</p>
+          <p>1 follower</p>
         {% else %}
-            <p>{{followers}} followers</p>
+          <p>{{followers}} followers</p>
         {% endif %}
     </a>
     <a href="/users/{{username}}/following/">{{following}} following</a>
@@ -39,7 +39,7 @@
   </div>
   <div>
     {% for post in posts %}
-    <a href="/posts/{{post}}/"><img class="post-img" src="{{img_url}}"/></a>
+      <a href="/posts/{{post.postid}}/"><img class="post-img" src="{{post.img_url}}"/></a>
     {% endfor %}
   </div>
 </body>
