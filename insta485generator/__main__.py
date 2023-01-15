@@ -32,10 +32,10 @@ def main(input_dir, output, verbose):
 
             #########   Format and Check Output Path #########
             url = url.lstrip("/")  # remove leading slash
-            output_dir = input_dir/"html"/url  # default, can be changed with --output option
+            output_dir = input_dir/"html"  # default, can be changed with --output option
             if output: #if -o is specified, different output_dir specified
                 output_dir = pathlib.Path(output) # convert str to Path object
-            output_path = input_dir/"html"/url/"index.html"
+            output_path = output_dir/url/"index.html"
             output_dir = output_dir/url
             if output_dir.exists():
                 print("Output directory already exists")
