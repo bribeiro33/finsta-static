@@ -9,9 +9,10 @@
 <body>
   <header>
     <a href="/">
-        <img src="/images/logo.png" alt="black and white instagram logo"></a>
-      <a href="/explore/">explore</a>
-      <a href="/users/{{logname}}/">{{logname}}</a>
+      <img src="/images/logo.png" alt="black and white instagram logo">
+    </a>
+    <a href="/explore/">explore</a>
+    <a href="/users/{{logname}}/">{{logname}}</a>
   </header>
   <div>
     <h1>{{username}}</h1> 
@@ -39,7 +40,9 @@
   </div>
   <div>
     {% for post in posts %}
-      <a href="/posts/{{post.postid}}/"><img class="post-img" src="{{post.img_url}}"/></a>
+      <a href="/posts/{{post.postid}}/">
+        <img class="post-img" src="{{post.img_url}}" alt="user's post"/>
+      </a>
     {% endfor %}
   </div>
 </body>

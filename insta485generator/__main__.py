@@ -60,10 +60,13 @@ def main(input_dir, output, verbose):
 
     #########   Copy static_dir files into output_dir #########
     static_dir = input_dir/"static"
+    output_dir = input_dir/"html"
+    if output:
+        output_dir = pathlib.Path(output)
     if static_dir.exists():
         shutil.copytree(src=static_dir, dst=output_dir, dirs_exist_ok=True)
         if verbose:
-            print("Copied " + str(input_dir) + " -> " + str(output_dir))
+            print("Copied " + str(static_dir) + " -> " + str(output_dir))
 
 
 
