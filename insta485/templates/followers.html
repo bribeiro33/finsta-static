@@ -18,13 +18,13 @@
       {% for follower in followers %}
         <img src="{{follower.user_img_url}}" alt="followers's icon" />
         <p><a href="/users/{{follower.username}}/">{{follower.username}}</a></p>
+        
+        {% if follower.logname_follows_username %}
+          <p>following</p>
+        {% elif not follower.logname_follows_username and logname != follower.username %}
+          <p>not following</p>
+        {% endif %}
       {% endfor %} 
-      
-      {% if logname_follows_username}
-        <p>following</p>
-      {% elif !logname_follows_username && logname != username %}
-        <p>not following</p>
-      {% endif %}
     </div>
   </body>
 </html>

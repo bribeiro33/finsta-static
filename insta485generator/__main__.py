@@ -32,13 +32,14 @@ def main(input_dir, output, verbose):
 
             #########   Format and Check Output Path #########
             url = url.lstrip("/")  # remove leading slash
-            output_dir = input_dir/"html"  # default, can be changed with --output option
+            output_dir = input_dir/"html"/url  # default, can be changed with --output option
             if output: #if -o is specified, different output_dir specified
                 output_dir = pathlib.Path(output) # convert str to Path object
+            output_path = input_dir/"html"/url/"index.html"
+            output_dir = output_dir/url
             if output_dir.exists():
                 print("Output directory already exists")
                 exit(1)
-            output_path = output_dir/url/"index.html"
             
             #########   Render Templates #########
             template_dir = str(input_dir) + "/templates/" 
@@ -50,7 +51,7 @@ def main(input_dir, output, verbose):
 
             template = template_env.get_template(template)
 
-            output_dir.mkdir() #check parents? for -output, already checked if dir exists
+            output_dir.mkdir(parents=True) #check parents? for -output, already checked if dir exists
             output_path.touch(exist_ok=False) #create index.html file
             output_path.write_text(template.render(**context)) # recursive rendering of all dictionaries in 'context'
             if verbose:
