@@ -15,6 +15,7 @@
         <a href="/users/{{logname}}/">{{logname}}</a>
     </header>
     <div>
+        <h1>Following</h1>
         {% for account in following %}
             <img src="{{account.user_img_url}}" alt="followers's icon">
             <p><a href="/users/{{account.username}}/">{{account.username}}</a></p>
